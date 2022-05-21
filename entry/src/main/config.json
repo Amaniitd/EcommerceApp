@@ -83,7 +83,9 @@
           "type": "pageAbility"
         },
         "pages": [
-          "pages/index"
+          "pages/index",
+          "pages/detail",
+          "pages/filter"
         ],
         "name": ".MainAbility",
         "window": {

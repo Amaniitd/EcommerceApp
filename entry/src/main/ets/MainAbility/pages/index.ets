@@ -1,5 +1,6 @@
 
-import {books} from '../Common/items/Books.ets';
+
+
 @Preview
 @Entry
 @Component
@@ -7,8 +8,7 @@ import {books} from '../Common/items/Books.ets';
 
 
 struct Index {
-
-  @State message: string = 'Hello World'
+  scroll: Scroller = new Scroller();
 
   /**
    * In low-code mode, do not add anything to the build function, as it will be
@@ -20,13 +20,13 @@ struct Index {
       Flex({justifyContent: FlexAlign.SpaceBetween}){
         Image($r("app.media.apps")).width(40).height(40)
         Image($r("app.media.profile")).width(40).height(40)
-      }.padding({bottom: 30})
+      }.padding({bottom: 20})
       Text("Discover").width('95%').fontSize(24).fontWeight(FontWeight.Bold).fontFamily('sans-serif')
-      Text("our new items.").width('95%').fontSize(24).fontWeight(FontWeight.Bold).padding({bottom: 20}).fontFamily('sans-serif')
+      Text("our new items.").width('95%').fontSize(24).fontWeight(FontWeight.Bold).padding({bottom: 10}).fontFamily('sans-serif')
       Flex({justifyContent: FlexAlign.SpaceBetween}) {
         TextArea({placeholder: "Search..."}).width(260)
         Image($r("app.media.menu")).width(40).height(40).opacity(0.6).padding(5)
-      }.padding({bottom: 30})
+      }.padding({bottom: 20})
       Flex({justifyContent: FlexAlign.SpaceBetween, direction: FlexDirection.Row}) {
         Image($r("app.media.shoes1")).width(60).height(60).borderRadius(5);
         Flex({direction: FlexDirection.Column}) {
@@ -34,13 +34,69 @@ struct Index {
           Text("Comming Soon...").fontSize(12).fontColor($r("app.color.color_1"))
         }.width(150).padding(5)
         Flex({justifyContent: FlexAlign.Center, direction: FlexDirection.Column}) {
-          Image($r("app.media.notify")).width(40).height(40)
+          Toggle({ type: ToggleType.Switch, isOn: false }).width(40).height(20)
           Text("Notify me")
-        }.padding(5)
-      }.height(80).borderWidth(1).padding(10).borderRadius(10)
+        }
+      }.height(80).padding(10).borderRadius(10).backgroundColor($r("app.color.off_white"))
 
+      Text("Categories").fontSize(20).fontWeight(FontWeight.Bold).fontFamily('sans-serif').width('95%').padding({top: 20, bottom: 10})
 
-    }.padding(25)
+      Scroll(this.scroll) {
+        Row({space: 10}) {
+          Button('Shoes', { type: ButtonType.Normal }).borderRadius(10).backgroundColor(0x317aff).width(80)
+          Button('Tech', { type: ButtonType.Normal }).borderRadius(10).backgroundColor($r("app.color.button_off")).width(80).fontColor(0x000000)
+          Button('Bag', { type: ButtonType.Normal }).borderRadius(10).backgroundColor($r("app.color.button_off")).width(80).fontColor(0x000000)
+          Button('Sofa', { type: ButtonType.Normal }).borderRadius(10).backgroundColor($r("app.color.button_off")).width(80).fontColor(0x000000)
+        }
+      }
+      .scrollable(ScrollDirection.Horizontal)
+      .scrollBar(BarState.On)
+      .margin({bottom: 25});
+
+      Flex({justifyContent: FlexAlign.SpaceBetween}){
+        Text('Popular Shoes').fontSize(15)
+        Flex({justifyContent: FlexAlign.Center}){
+          Text('View more ').padding({right: 5})
+          Image($r("app.media.next")).width(12).height(12)
+        }.width(100).padding({top: 3})
+      }.padding({bottom : 10})
+      Flex({justifyContent: FlexAlign.SpaceBetween}){
+        Flex({direction: FlexDirection.Column}) {
+          Image($r("app.media.shoes3")).height(160).padding({right: 5}).borderRadius(10)
+          Text('Running Unisex Shoes Edition 1').fontSize(12).padding(8).fontWeight(FontWeight.Bold)
+          Text('₹ 1499').padding({left: 20}).fontSize(11)
+        }
+        Flex({direction: FlexDirection.Column}) {
+          Image($r("app.media.shoes4")).height(160).padding({left: 5}).borderRadius(10)
+          Text('Running Unisex Shoes Edition 1').fontSize(12).padding(8).fontWeight(FontWeight.Bold)
+          Text('₹ 1299').padding({left: 20}).fontSize(11)
+        }
+      }.height(210)
+      Divider().height(20).width('95%').opacity(0.4)
+
+      Flex({justifyContent: FlexAlign.SpaceAround, direction: FlexDirection.Row}) {
+        // navigation button
+        Column() {
+          Image($r("app.media.home")).objectFit(ImageFit.Cover).width(30).height(30);
+          Text("Home").fontSize(12);
+        }
+
+        Column() {
+          Image($r("app.media.categories")).objectFit(ImageFit.Cover).width(30).height(30);
+          Text("Categories").fontSize(12);
+        }.opacity(0.5)
+
+        Column() {
+          Image($r("app.media.notification")).objectFit(ImageFit.Cover).width(30).height(30);
+          Text("Notification").fontSize(12);
+        }.opacity(0.5)
+
+        Column() {
+          Image($r("app.media.cart")).objectFit(ImageFit.Cover).width(30).height(30);
+          Text("Cart").fontSize(12);
+        }.opacity(0.5)
+      }
+    }.padding(20)
 
   }
 }
